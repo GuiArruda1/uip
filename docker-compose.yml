@@ -1,0 +1,53 @@
+services:
+  db:
+    image: mariadb:10.6
+    container_name: uip-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: uip_db
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress_password
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - uip_db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    container_name: uip-wordpress
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8097:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress_password
+      WORDPRESS_DB_NAME: uip_db
+      WORDPRESS_DEBUG: 1
+    volumes:
+      - uip_wp_data:/var/www/html
+      - .:/var/www/html/wp-content/themes/uip
+
+  wpcli:
+    image: wordpress:cli
+    container_name: uip-wpcli
+    restart: "no"
+    user: "33:33"
+    depends_on:
+      - db
+      - wordpress
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: uip_db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress_password
+    volumes:
+      - uip_wp_data:/var/www/html
+      - .:/var/www/html/wp-content/themes/uip
+    working_dir: /var/www/html
+
+volumes:
+  uip_db_data:
+  uip_wp_data:
+
