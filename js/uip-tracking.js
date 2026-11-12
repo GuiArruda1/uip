@@ -63,6 +63,14 @@
                 language: config.language
             });
 
+            // Also push gads_form_lead alias for 100% GTM trigger coverage
+            pushDataLayer({
+                event: 'gads_form_lead',
+                form_id: formId,
+                form_name: formName,
+                development: development
+            });
+
             // B. If Brochure Request: Trigger Brochure Conversions (Google Ads 2: msUPCPjh_pgcEMCX6IhA & Meta Pixel Lead)
             if (isBrochure) {
                 pushDataLayer({
@@ -201,3 +209,4 @@
     });
 
 })(jQuery);
+
