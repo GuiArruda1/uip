@@ -1,93 +1,131 @@
 /**
  * UIP Custom Styles & Responsive Typography Fixes
+ * Solves title and brochure card collisions across all viewports
  */
 
 /* ==========================================================================
-   1. UIP Hero & Brochure Title Typography
-   Fixes heading overflow and collision with absolute form card
+   1. Hero Section & Layout Container (.elementor-element-19794da)
    ========================================================================== */
 
-.uip-titulo-hero,
+.elementor-9201 .elementor-element.elementor-element-19794da,
+.elementor-element-19794da {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    position: relative !important;
+    min-height: auto !important;
+    height: auto !important;
+}
+
+/* ==========================================================================
+   2. Hero Title Typography (.uip-titulo-hero / .elementor-element-eb031c8)
+   ========================================================================== */
+
+.elementor-9201 .elementor-element.elementor-element-eb031c8,
+.elementor-element-eb031c8 {
+    position: relative !important;
+    z-index: 1 !important;
+    width: 100% !important;
+    margin: 0 0 20px 0 !important;
+    padding: 0 !important;
+}
+
+.elementor-9201 .elementor-element.elementor-element-eb031c8 .elementor-heading-title,
+.elementor-element-eb031c8 .elementor-heading-title,
 .uip-titulo-hero .elementor-heading-title {
     font-family: "Cormorant Garamond", Georgia, serif !important;
     text-transform: uppercase !important;
     letter-spacing: 0.02em !important;
     word-break: normal !important;
     overflow-wrap: break-word !important;
+    color: var(--e-global-color-text, #B89658) !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-/* Desktop Grande (1441px+) */
+/* ==========================================================================
+   3. Brochure Form Card (.elementor-element-48dabae.contact-mobile)
+   Use relative flow so it NEVER overlaps the title text above it
+   ========================================================================== */
+
+.elementor-9201 .elementor-element.elementor-element-48dabae,
+.elementor-element-48dabae.contact-mobile {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    right: auto !important;
+    z-index: 5 !important;
+    width: 100% !important;
+    max-width: 640px !important;
+    box-sizing: border-box !important;
+    background-color: #ffffff !important;
+    margin-top: 15px !important;
+}
+
+/* ==========================================================================
+   4. Responsive Breakpoints
+   ========================================================================== */
+
+/* Large Desktop (1441px+) */
 @media (min-width: 1441px) {
-    .elementor-element-19794da .uip-titulo-hero .elementor-heading-title,
     .elementor-element-eb031c8 .elementor-heading-title {
         font-size: 50px !important;
         line-height: 56px !important;
-        margin-bottom: 24px !important;
     }
 
-    .elementor-element-19794da {
-        min-height: 680px !important;
-    }
-
-    .elementor-element-48dabae.contact-mobile {
-        top: auto !important;
-        bottom: 0 !important;
+    body:not(.rtl) .elementor-element-48dabae.contact-mobile {
+        margin-left: -130px !important;
+        left: 0 !important;
+        width: calc(100% + 130px) !important;
+        max-width: 680px !important;
     }
 }
 
-/* Laptops & Standard Desktop (1025px - 1440px) */
+/* Standard Desktop / Laptops (1025px - 1440px, e.g. MacBook Pro 1512x982 / 1366x768) */
 @media (min-width: 1025px) and (max-width: 1440px) {
-    .elementor-element-19794da .uip-titulo-hero .elementor-heading-title,
     .elementor-element-eb031c8 .elementor-heading-title {
-        font-size: 42px !important;
-        line-height: 48px !important;
-        margin-bottom: 20px !important;
+        font-size: 40px !important;
+        line-height: 46px !important;
     }
 
-    .elementor-element-19794da {
-        min-height: 640px !important;
-    }
-
-    .elementor-element-48dabae.contact-mobile {
-        top: auto !important;
-        bottom: 0 !important;
+    body:not(.rtl) .elementor-element-48dabae.contact-mobile {
+        margin-left: -100px !important;
+        left: 0 !important;
+        width: calc(100% + 100px) !important;
+        max-width: 640px !important;
     }
 }
 
 /* Tablets (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
-    .elementor-element-19794da .uip-titulo-hero .elementor-heading-title,
     .elementor-element-eb031c8 .elementor-heading-title {
-        font-size: 34px !important;
+        font-size: 32px !important;
         line-height: 38px !important;
-        margin-bottom: 20px !important;
     }
 
     .elementor-element-48dabae.contact-mobile {
-        position: relative !important;
-        top: auto !important;
-        bottom: auto !important;
+        margin-left: 0 !important;
         left: 0 !important;
         width: 100% !important;
+        max-width: 100% !important;
         margin-top: 24px !important;
     }
 }
 
 /* Mobile (<= 767px) */
 @media (max-width: 767px) {
-    .elementor-element-19794da .uip-titulo-hero .elementor-heading-title,
     .elementor-element-eb031c8 .elementor-heading-title {
         font-size: 26px !important;
         line-height: 32px !important;
-        margin-bottom: 16px !important;
     }
 
     .elementor-element-48dabae.contact-mobile {
-        position: relative !important;
-        top: auto !important;
-        bottom: auto !important;
+        margin-left: 0 !important;
         left: 0 !important;
         width: 100% !important;
+        max-width: 100% !important;
         margin-top: 20px !important;
+        padding: 24px 20px !important;
     }
 }
