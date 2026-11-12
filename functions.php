@@ -27,7 +27,8 @@ function uip_enqueue_scripts() {
 
     // Modular custom CSS if present
     if ( file_exists( UIP_THEME_DIR . '/css/custom.css' ) ) {
-        wp_enqueue_style( 'uip-custom', UIP_THEME_URI . '/css/custom.css', array( 'uip-style' ), UIP_THEME_VERSION );
+        $custom_css_ver = filemtime( UIP_THEME_DIR . '/css/custom.css' );
+        wp_enqueue_style( 'uip-custom', UIP_THEME_URI . '/css/custom.css', array( 'uip-style' ), $custom_css_ver );
     }
 
     // Modular custom Vanilla JS if present
@@ -35,7 +36,7 @@ function uip_enqueue_scripts() {
         wp_enqueue_script( 'uip-custom', UIP_THEME_URI . '/js/custom.js', array(), UIP_THEME_VERSION, true );
     }
 }
-add_action( 'wp_enqueue_scripts', 'uip_enqueue_scripts', 20 );
+add_action( 'wp_enqueue_scripts', 'uip_enqueue_scripts', 99 );
 
 /**
  * Include modular helpers and custom logic from /inc/
